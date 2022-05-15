@@ -38,11 +38,14 @@ storage.forEach((element) => {
 });
 
 // Afficher le nombre total d'articles
-let sumQuantity = 0;
-storage.forEach((Object) => {
-  sumQuantity += JSON.parse(Object.quantity);
-});
-document.getElementById("totalQuantity").textContent = sumQuantity;
+function majTotalArticle() {
+  let sumQuantity = 0;
+  storage.forEach((Object) => {
+    sumQuantity += JSON.parse(Object.quantity);
+  });
+  document.getElementById("totalQuantity").textContent = sumQuantity;
+}
+majTotalArticle();
 
 // Afficher le prix total
 let sumPrice = 0;
@@ -73,7 +76,7 @@ let newQuantityInput = [...document.getElementsByClassName("itemQuantity")];
 let productsInCart = document.getElementById("cart__items");
 newQuantityInput.forEach((productsInCart, index) => {
   productsInCart.addEventListener("change", () => {
-    if (newQuantityInput[index].value <= 0) {
+    /*if (newQuantityInput[index].value <= 0) {
       // supprimer dans le DOM
       let deletedProduct = newQuantityInput[index].closest(".cart__item");
       deletedProduct.remove();
@@ -82,14 +85,16 @@ newQuantityInput.forEach((productsInCart, index) => {
       storage.splice(index, 1);
       localStorage.setItem("CART", JSON.stringify(storage));
       location.reload();
-    } else {
-      // modifie la quantité dans le local storage
-      storage[index].quantity = newQuantityInput[index].value;
-      storage[index].totalPrice =
-        newQuantityInput[index].value * storage[index].price;
-      localStorage.setItem("CART", JSON.stringify(storage));
-      location.reload();
-    }
+    } else {*/
+    // modifie la quantité dans le local storage
+    storage[index].quantity = newQuantityInput[index].value;
+    storage[index].totalPrice =
+      newQuantityInput[index].value * storage[index].price;
+    localStorage.setItem("CART", JSON.stringify(storage));
+    majTotalArticle();
+
+      //location.reload();
+    //}
   });
 });
 
@@ -201,17 +206,16 @@ document.getElementById("order").addEventListener("click", function (e) {
       .then((res) => {
         return res.json();
       })
-// Récupérer le n° de commande
-.then(data => {
-  let orderId = data.orderId;
-  
-//redirection vers la page confirmation
-  document.location.href = "confirmation.html?id=" + orderId;
-  
-});        
+      // Récupérer le n° de commande
+      .then((data) => {
+        let orderId = data.orderId;
 
-
-} else {
-alert("Veuillez vérifier votre panier et intégralement remplir le formulaire avant de passer votre commande.");
-}
-})
+        //redirection vers la page confirmation
+        document.location.href = "confirmation.html?id=" + orderId;
+      });
+  } else {
+    alert(
+      "Veuillez vérifier votre panier et intégralement remplir le formulaire avant de passer votre commande."
+    );
+  }
+});
