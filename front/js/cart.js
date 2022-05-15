@@ -201,17 +201,16 @@ document.getElementById("order").addEventListener("click", function (e) {
       .then((res) => {
         return res.json();
       })
+// Récupérer le n° de commande
+.then(data => {
+  let orderId = data.orderId;
+  
+  //redirection vers la page confirmation
+  document.location.href = `http://127.0.0.1:5500/front/html/confirmation.html?id=${orderId}`;
+});        
 
-      // Récupérer le n° de commande
-      .then((data) => {
-        let orderId = data.orderId;
 
-        //redirection vers la page confirmation
-        document.location.href = `./confirmation.html?id-order=${order};
-      });
-  } else {
-    alert(
-      "Veuillez vérifier votre panier et intégralement remplir le formulaire avant de passer votre commande."
-    );
-  }
-});
+} else {
+alert("Veuillez vérifier votre panier et intégralement remplir le formulaire avant de passer votre commande.");
+}
+})
