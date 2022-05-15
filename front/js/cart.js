@@ -206,7 +206,8 @@ document.getElementById("order").addEventListener("click", function (e) {
   let orderId = data.orderId;
   
 //redirection vers la page confirmation
-  document.location.href = "confirmation.html";
+  document.location.href = "confirmation.html?id=" + orderId;
+  
 });        
 
 
