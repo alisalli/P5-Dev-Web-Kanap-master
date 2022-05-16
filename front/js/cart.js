@@ -93,7 +93,7 @@ newQuantityInput.forEach((productsInCart, index) => {
     localStorage.setItem("CART", JSON.stringify(storage));
     majTotalArticle();
 
-      //location.reload();
+    //location.reload();
     //}
   });
 });
