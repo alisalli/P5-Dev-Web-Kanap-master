@@ -31,9 +31,9 @@ fetch(`http://localhost:3000/api/products/${productId}`)
   .then((dataList) => {
     //afficher les détails du produit sur la page
     dataSet = dataList;
-    document.querySelector("#title").textContent += dataList.name;
-    document.querySelector("#price").textContent += dataList.price;
-    document.querySelector("#description").textContent += dataList.description;
+    document.querySelector("#title").textContent = dataList.name;
+    document.querySelector("#price").textContent = dataList.price;
+    document.querySelector("#description").textContent = dataList.description;
     document.querySelector(
       "div.item__img"
     ).innerHTML = `<img src="${dataList["imageUrl"]}" alt="${dataList["altTxt"]}">`;

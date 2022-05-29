@@ -44,15 +44,17 @@ function majTotalArticle() {
     sumQuantity += JSON.parse(Object.quantity);
   });
   document.getElementById("totalQuantity").textContent = sumQuantity;
+
+  // Afficher le prix total
+  let sumPrice = 0;
+  storage.forEach((Object) => {
+    sumPrice += JSON.parse(Object.totalPrice);
+  });
+  document.getElementById("totalPrice").textContent = sumPrice;
 }
 majTotalArticle();
 
-// Afficher le prix total
-let sumPrice = 0;
-storage.forEach((Object) => {
-  sumPrice += JSON.parse(Object.totalPrice);
-});
-document.getElementById("totalPrice").textContent = sumPrice;
+
 
 // --------------------- Modification du panier
 
@@ -76,25 +78,32 @@ let newQuantityInput = [...document.getElementsByClassName("itemQuantity")];
 let productsInCart = document.getElementById("cart__items");
 newQuantityInput.forEach((productsInCart, index) => {
   productsInCart.addEventListener("change", () => {
-    /*if (newQuantityInput[index].value <= 0) {
+    if (newQuantityInput[index].value > 0) {
+
+      storage[index].quantity = newQuantityInput[index].value;
+      storage[index].totalPrice =
+        newQuantityInput[index].value * storage[index].price;
+      localStorage.setItem("CART", JSON.stringify(storage));
+      majTotalArticle();
+
       // supprimer dans le DOM
-      let deletedProduct = newQuantityInput[index].closest(".cart__item");
-      deletedProduct.remove();
+      /*let deletedProduct = newQuantityInput[index].closest(".cart__item");
+      deletedProduct.remove();*/
 
       // supprimer dans le local storage
-      storage.splice(index, 1);
+      /*storage.splice(index, 1);
       localStorage.setItem("CART", JSON.stringify(storage));
+      location.reload();*/
+    } else {
+
+      alert("Veuillez ne pas saisir de valeur négative");
       location.reload();
-    } else {*/
+
     // modifie la quantité dans le local storage
-    storage[index].quantity = newQuantityInput[index].value;
-    storage[index].totalPrice =
-      newQuantityInput[index].value * storage[index].price;
-    localStorage.setItem("CART", JSON.stringify(storage));
-    majTotalArticle();
+
 
     //location.reload();
-    //}
+    }
   });
 });
 
